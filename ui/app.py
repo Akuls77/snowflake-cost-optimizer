@@ -1,4 +1,10 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 import streamlit as st
+from agent.agent import cost_optimization_agent
 
 st.title("Snowflake Cost Optmization Advisor")
 
@@ -16,6 +22,8 @@ if st.button("Ask Advisor"):
     if user_question.strip() == "":
         st.warning("Please enter a question.")
     else:
-        st.success("Question received!")
-        st.write("You asked:")
-        st.code(user_question)
+        with st.spinner("Analyzong cost data..."):
+            response = cost_optimization_agent(user_question)
+
+            st.subheader("Advisor response")
+            st.success(response)
