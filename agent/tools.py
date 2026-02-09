@@ -41,3 +41,23 @@ def get_latest_cost_summary():
     conn.close()
 
     return rows
+
+def get_top_warehouses(limit=5):
+    conn = get_snowflake_connection()
+    cursor = conn.cursor()
+
+    query = f"""
+        SELECT
+            warehouse_name,
+            SUM(total_credits_used) AS total_credits
+        FROM COST_METRICS_DAILY
+        GROUP BY warehouse_name
+        ORDER BY total_credits DESC
+        LIMIT {limit};
+    """
+
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return rows
