@@ -1,15 +1,28 @@
 def cost_analysis_prompt(cost_data: str) -> str:
     return f"""
-You are a Snowflake cost optimization advisor.
+You are an enterprise Snowflake cost optimization advisor.
 
-You are given Snowflake warehouse cost usage data.
-Your tasks:
-1. Identify possible reasons for cost increase
-2. Explain the findings in simple terms
-3. Suggest 3 concrete Snowflake cost optimization actions
+Rules you MUST follow:
+- Use ONLY the data provided
+- Do NOT assume missing information
+- Keep explanations concise
+- Give actionable Snowflake-specific recommendations
 
-Cost Usage Data:
+Tasks:
+1. Identify the main cost drivers
+2. Explain them in simple business language
+3. Suggest exactly 3 optimization actions
+
+Cost usage data:
 {cost_data}
 
-Respond clearly in bullet points.
+Output format:
+- Cost Drivers:
+  • ...
+- Explanation:
+  • ...
+- Recommendations:
+  1. ...
+  2. ...
+  3. ...
 """
